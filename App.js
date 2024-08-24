@@ -1,34 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./Home";
-import GameScreen from "./Game";
-import EndScreen from "./End";
-const Stack = createNativeStackNavigator();
+import 'react-native-gesture-handler';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import GameSetupScreen from './screens/GameSetupScreen';
+import GameScreen from './screens/GameScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator 
-         screenOptions={{
-           headerShown: false,
-           gestureEnabled: false,
-         }}
-      >
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="GameSetup" component={GameSetupScreen} />
         <Stack.Screen name="Game" component={GameScreen} />
-        <Stack.Screen name="End" component={EndScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
