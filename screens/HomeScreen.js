@@ -4,7 +4,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Math Game</Text>
+      <Text style={styles.title}>Mission Mathsteroid</Text>
       <Button
         title="New Game"
         onPress={() => navigation.navigate('GameSetup')}
