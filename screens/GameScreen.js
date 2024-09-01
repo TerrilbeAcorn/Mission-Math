@@ -2,33 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
 
 export default function GameScreen({ route, navigation }) {
-  const { operation, numberOfQuestions } = route.params;
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const { equations } = route.params; // Retrieve equations from route params
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
-  const [question, setQuestion] = useState({});
+  const [timeLeft, setTimeLeft] = useState(equations[0].timeToSolve);
   const [isAnswered, setIsAnswered] = useState(false);
   const [feedback, setFeedback] = useState('');
 
+  const currentQuestion = equations[currentQuestionIndex];
+
   useEffect(() => {
-    generateQuestion();
-  }, [currentQuestion]);
-
-  const generateQuestion = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    const correctAnswer = operation === 'addition' ? num1 + num2 : num1 - num2;
-
-    setQuestion({
-      num1,
-      num2,
-      correctAnswer,
-    });
-  };
+    let timer;
+    if (timeLeft > 0 && !isAnswered) {
+      timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+    } else if (timeLeft === 0) {
+      handleSubmit(); // Auto-submit when time runs out
+    }
+    return () => clearTimeout(timer);
+  }, [timeLeft, isAnswered]);
 
   const handleSubmit = () => {
-    const isCorrect = parseInt(userAnswer) === question.correctAnswer;
-    setFeedback(isCorrect ? 'Correct!' : `Wrong! The correct answer was ${question.correctAnswer}`);
+    const isCorrect = parseInt(userAnswer) === currentQuestion.correctAnswer;
+    setFeedback(isCorrect ? 'Correct!' : `Wrong! The correct answer was ${currentQuestion.correctAnswer}`);
     if (isCorrect) {
       setScore(score + 1);
     }
@@ -36,9 +32,10 @@ export default function GameScreen({ route, navigation }) {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < numberOfQuestions - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (currentQuestionIndex < equations.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
       setUserAnswer('');
+      setTimeLeft(equations[currentQuestionIndex + 1].timeToSolve);
       setIsAnswered(false);
       setFeedback('');
     } else {
@@ -49,7 +46,7 @@ export default function GameScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.question}>
-        {question.num1} {operation === 'addition' ? '+' : '-'} {question.num2} = ?
+        {currentQuestion.question}
       </Text>
       {!isAnswered ? (
         <>
@@ -61,6 +58,7 @@ export default function GameScreen({ route, navigation }) {
             placeholder="Your Answer"
           />
           <Button title="Submit" onPress={handleSubmit} />
+          <Text>Time left: {timeLeft} seconds</Text>
         </>
       ) : (
         <>
