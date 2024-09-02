@@ -67,15 +67,15 @@ export default function GameScreen({ route, navigation }) {
                 placeholderTextColor="gray"
               />
               <Button title="Submit" onPress={handleSubmit} />
-              <Text>Time left: {timeLeft} seconds</Text>
+              <Text style={styles.textColour}>Time left: {timeLeft} seconds</Text>
             </>
           ) : (
             <>
-              <Text style={styles.feedback}>{feedback}</Text>
+              <Text>{feedback}</Text>
               <Button title="Next Question" onPress={handleNextQuestion} />
             </>
           )}
-          <Text>Score: {score}</Text>
+          <Text style={styles.textColour}>Score: {score}</Text>
         </View>
       </TwinklingStarBackground>
     </SafeAreaView>
@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
   feedback: {
     fontSize: 18,
     marginVertical: 10,
+    color: 'gray',
+  },
+  textColour: {
     color: 'gray',
   },
 });

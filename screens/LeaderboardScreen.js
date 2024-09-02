@@ -69,7 +69,7 @@ export default function LeaderboardScreen({ route, navigation }) {
   };
 
   const checkForHighScore = () => {
-    if (finalScore > scores[scores.length - 1]?.score) {
+    if (scores.length < 25 || finalScore > scores[scores.length - 1]?.score) {
       setNewHighScore(true);
       Alert.alert('New High Score!', 'You made it to the leaderboard! Enter your nickname.');
     }
@@ -81,10 +81,17 @@ export default function LeaderboardScreen({ route, navigation }) {
       return;
     }
   
-    const newScores = [...scores, { position: scores.length + 1, nickname, score: finalScore }]
+    const newEntry = { position: scores.length + 1, nickname, score: finalScore };
+  
+    let newScores = [...scores, newEntry]
       .sort((a, b) => b.score - a.score)
       .slice(0, 25)
       .map((score, index) => ({ ...score, position: index + 1 }));
+  
+    // Check if the new score is in the top 25
+    if (newScores.length > 25) {
+      newScores = newScores.slice(0, 25);
+    }
   
     setScores(newScores);
     saveScores(newScores);
