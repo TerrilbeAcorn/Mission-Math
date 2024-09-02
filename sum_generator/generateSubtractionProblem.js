@@ -18,7 +18,32 @@ function generateSubtractionProblem(userAge, difficulty) {
     // Define the range for numbers based on age
     let maxNumber;
     if (userAge >= 7 && userAge <= 14) {
-        maxNumber = 100 * userAge; // Increase number size with age
+        switch (userAge) {
+            case 7:
+                maxNumber = 50;
+                break;
+            case 8:
+                maxNumber = 100;
+                break;
+            case 9:
+                maxNumber = 200;
+                break;
+            case 10:
+                maxNumber = 400;
+                break;
+            case 11:
+                maxNumber = 500;
+                break;
+            case 12:
+                maxNumber = 1000;
+                break;
+            case 13:
+            case 14:
+                maxNumber = 5000;
+                break;
+            default:
+                throw new Error("Invalid age. Please provide an age between 7 and 14.");
+        }
     } else {
         throw new Error("Invalid age. Please provide an age between 7 and 14.");
     }

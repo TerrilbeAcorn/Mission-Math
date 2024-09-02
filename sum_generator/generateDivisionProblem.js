@@ -18,16 +18,48 @@ function generateDivisionProblem(userAge, difficulty) {
     // Define the range for numbers based on age
     let maxNumber;
     if (userAge >= 7 && userAge <= 14) {
-        maxNumber = 10 * userAge; // Increase number size with age
+        switch (userAge) {
+            case 7:
+                maxNumber = 50;
+                break;
+            case 8:
+                maxNumber = 100;
+                break;
+            case 9:
+                maxNumber = 200;
+                break;
+            case 10:
+                maxNumber = 400;
+                break;
+            case 11:
+                maxNumber = 500;
+                break;
+            case 12:
+                maxNumber = 1000;
+                break;
+            case 13:
+            case 14:
+                maxNumber = 5000;
+                break;
+            default:
+                throw new Error("Invalid age. Please provide an age between 7 and 14.");
+        }
     } else {
         throw new Error("Invalid age. Please provide an age between 7 and 14.");
     }
 
-    // Generate the second number (divisor) which should be greater than 0
-    const num2 = Math.floor(Math.random() * maxNumber) + 1;
+    // Generate the first number (dividend) which should be between 1 and maxNumber
+    const num1 = Math.floor(Math.random() * maxNumber) + 1;
 
-    // Generate the first number (dividend) as a multiple of the divisor to ensure a whole number result
-    const num1 = num2 * (Math.floor(Math.random() * maxNumber) + 1);
+    // Generate the second number (divisor) which should be a divisor of num1 and greater than 0
+    // To ensure num1 is divisible by num2, we generate num2 as a factor of num1.
+    const possibleDivisors = [];
+    for (let i = 1; i <= num1; i++) {
+        if (num1 % i === 0) {
+            possibleDivisors.push(i);
+        }
+    }
+    const num2 = possibleDivisors[Math.floor(Math.random() * possibleDivisors.length)];
 
     // Calculate the correct answer
     const correctAnswer = num1 / num2;
@@ -42,6 +74,5 @@ function generateDivisionProblem(userAge, difficulty) {
         timeToSolve: timeToSolve
     };
 }
-
 // Export the function so it can be imported in other files
 export default generateDivisionProblem;
