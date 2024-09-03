@@ -20,33 +20,33 @@ function generateMultiplicationProblem(userAge, difficulty) {
     if (userAge >= 7 && userAge <= 14) {
         switch (userAge) {
             case 7:
-                maxNumber1 = 50;
+                maxNumber1 = 10;
                 maxNumber2 = 10;
                 break;
             case 8:
-                maxNumber1 = 100;
-                maxNumber2 = 12;
+                maxNumber1 = 50;
+                maxNumber2 = 10;
                 break;
             case 9:
-                maxNumber1 = 200;
-                maxNumber2 = 12;
+                maxNumber1 = 100;
+                maxNumber2 = 10;
                 break;
             case 10:
-                maxNumber1 = 400;
+                maxNumber1 = 100;
                 maxNumber2 = 12;
                 break;
             case 11:
                 maxNumber1 = 500;
-                maxNumber2 = 20;
+                maxNumber2 = 10;
                 break;
             case 12:
-                maxNumber1 = 1000;
-                maxNumber2 = 50;
+                maxNumber1 = 500;
+                maxNumber2 = 12;
                 break;
             case 13:
             case 14:
-                maxNumber1 = 5000;
-                maxNumber2 = 100;
+                maxNumber1 = 1000;
+                maxNumber2 = 12;
                 break;
             default:
                 throw new Error("Invalid age. Please provide an age between 7 and 14.");

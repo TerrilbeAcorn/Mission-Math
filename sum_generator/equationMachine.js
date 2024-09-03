@@ -2,6 +2,7 @@ import generateAdditionProblem from './generateAdditionProblem';
 import generateSubtractionProblem from './generateSubtractionProblem';
 import generateMultiplicationProblem from './generateMultiplicationProblem';
 import generateDivisionProblem from './generateDivisionProblem';
+import generateMixedProblem from './generateMixedProblem';
 
 /**
  * @typedef {Object} Equation
@@ -12,7 +13,7 @@ import generateDivisionProblem from './generateDivisionProblem';
 
 /**
  * Generates a list of math problems.
- * @param {string[]} equationType - Array of equation types ('addition', 'subtraction', 'multiplication', 'division').
+ * @param {string[]} equationType - Array of equation types ('addition', 'subtraction', 'multiplication', 'division', 'bodmas').
  * @param {number} noOfEquations - Number of equations to generate.
  * @param {number} userAge - User's age to determine difficulty.
  * @param {number} difficulty - Difficulty level (1, 2, 3).
@@ -39,6 +40,9 @@ export default function equationMachine(equationType, noOfEquations, userAge, di
         case 'division':
           equation = generateDivisionProblem(userAge, difficulty);
           break;
+        case 'bodmas':
+          equation = generateMixedProblem(userAge, difficulty);
+          break;
         default:
           throw new Error(`Invalid equation type: ${randomType}`);
       }
@@ -47,4 +51,4 @@ export default function equationMachine(equationType, noOfEquations, userAge, di
     }
   
     return equationsList;
-  }
+}

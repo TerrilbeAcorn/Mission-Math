@@ -9,6 +9,7 @@ export default function GameSetupScreen({ navigation }) {
     subtraction: false,
     multiplication: false,
     division: false,
+    bodmas: false, // New state for BODMAS equations
   });
   const [numberOfQuestions, setNumberOfQuestions] = useState(5); // Default number of questions
   const [age, setAge] = useState('');
@@ -92,6 +93,12 @@ export default function GameSetupScreen({ navigation }) {
                   onPress={() => handleButtonPress('division')}
                 />
               </View>
+
+              <Button
+                title="BODMAS Equations"
+                color={selectedOperations.bodmas ? 'green' : 'red'}
+                onPress={() => handleButtonPress('bodmas')}
+              />
 
               <Text style={styles.label}>Enter Your Age:</Text>
               <TextInput
