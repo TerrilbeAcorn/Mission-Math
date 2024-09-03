@@ -28,8 +28,11 @@ const topScores = [
   { position: 22, nickname: 'Player22', score: 4 },
   { position: 23, nickname: 'Player23', score: 3 },
   { position: 24, nickname: 'Player24', score: 2 },
-  { position: 25, nickname: 'Player25', score: 1 },
-  
+  { position: 25, nickname: 'Player25', score: 2 },
+];
+
+const bannedWords = [
+  'fuck', 'cunt', 'shit', 'bastard', 'fart', 'shite', 'bawbag', 'bitch', 'boob', 'fanny', 'arse' // Add your banned words here
 ];
 
 const saveScores = async (scores) => {
@@ -69,10 +72,17 @@ export default function LeaderboardScreen({ route, navigation }) {
   };
 
   const checkForHighScore = () => {
-    if (scores.length < 25 || finalScore > scores[scores.length - 1]?.score) {
+    const lowestScore = scores.length > 0 ? scores[scores.length - 1].score : 0;
+    if (finalScore > lowestScore) {
       setNewHighScore(true);
       Alert.alert('New High Score!', 'You made it to the leaderboard! Enter your nickname.');
+    } else {
+      setNewHighScore(false);
     }
+  };
+
+  const containsBannedWord = (nickname) => {
+    return bannedWords.some((word) => nickname.toLowerCase().includes(word));
   };
 
   const submitScore = () => {
@@ -80,22 +90,22 @@ export default function LeaderboardScreen({ route, navigation }) {
       Alert.alert('Nickname Required', 'Please enter a nickname.');
       return;
     }
-  
+
+    if (containsBannedWord(nickname)) {
+      Alert.alert('Invalid Nickname', 'Your nickname contains inappropriate words. Please choose a different one.');
+      return;
+    }
+
     const newEntry = { position: scores.length + 1, nickname, score: finalScore };
-  
+
     let newScores = [...scores, newEntry]
       .sort((a, b) => b.score - a.score)
       .slice(0, 25)
       .map((score, index) => ({ ...score, position: index + 1 }));
-  
-    // Check if the new score is in the top 25
-    if (newScores.length > 25) {
-      newScores = newScores.slice(0, 25);
-    }
-  
+
     setScores(newScores);
     saveScores(newScores);
-  
+
     setNewHighScore(false);
   };
 
@@ -154,14 +164,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
-    color: 'gray'
+    color: 'gray',
   },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: 'gray'
+    color: 'gray',
   },
   inputContainer: {
     alignItems: 'center',
@@ -174,7 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     textAlign: 'center',
-    color: 'gray'
+    color: 'gray',
   },
   tableRow: {
     flexDirection: 'row',
@@ -184,6 +194,6 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     textAlign: 'center',
-    color: 'gray'
+    color: 'gray',
   },
 });

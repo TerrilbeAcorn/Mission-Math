@@ -10,7 +10,7 @@ export default function GameSetupScreen({ navigation }) {
     multiplication: false,
     division: false,
   });
-  const [numberOfQuestions, setNumberOfQuestions] = useState('5');
+  const [numberOfQuestions, setNumberOfQuestions] = useState(5); // Default number of questions
   const [age, setAge] = useState('');
   const [difficulty, setDifficulty] = useState(1); // Default difficulty set to 1
 
@@ -40,7 +40,7 @@ export default function GameSetupScreen({ navigation }) {
     }
 
     if (operations.length === 0) {
-      alert('Please select at least one operation.');
+      Alert.alert('No Operation Selected', 'Please select at least one operation.');
       return;
     }
 
@@ -49,12 +49,16 @@ export default function GameSetupScreen({ navigation }) {
       navigation.navigate('Game', { equations, difficulty });
     } catch (error) {
       console.error('Error generating equations:', error.message);
-      alert('There was an error generating the equations. Please try again.');
+      Alert.alert('Error', 'There was an error generating the equations. Please try again.');
     }
   };
 
   const handleDifficultyPress = (level) => {
     setDifficulty(level);
+  };
+
+  const handleNumberOfQuestionsPress = (number) => {
+    setNumberOfQuestions(number);
   };
 
   return (
@@ -69,22 +73,22 @@ export default function GameSetupScreen({ navigation }) {
               <View style={styles.buttonContainer}>
                 <Button
                   title="Addition"
-                  color={selectedOperations.addition ? 'green' : 'gray'}
+                  color={selectedOperations.addition ? 'green' : 'red'}
                   onPress={() => handleButtonPress('addition')}
                 />
                 <Button
                   title="Subtraction"
-                  color={selectedOperations.subtraction ? 'green' : 'gray'}
+                  color={selectedOperations.subtraction ? 'green' : 'red'}
                   onPress={() => handleButtonPress('subtraction')}
                 />
                 <Button
                   title="Multiplication"
-                  color={selectedOperations.multiplication ? 'green' : 'gray'}
+                  color={selectedOperations.multiplication ? 'green' : 'red'}
                   onPress={() => handleButtonPress('multiplication')}
                 />
                 <Button
                   title="Division"
-                  color={selectedOperations.division ? 'green' : 'gray'}
+                  color={selectedOperations.division ? 'green' : 'red'}
                   onPress={() => handleButtonPress('division')}
                 />
               </View>
@@ -95,35 +99,49 @@ export default function GameSetupScreen({ navigation }) {
                 keyboardType="numeric"
                 value={age}
                 onChangeText={setAge}
-                placeholder="Enter your age"
+                placeholder="Enter your age (7 - 14)"
                 placeholderTextColor="gray"
               />
 
               <Text style={styles.label}>Select Number of Questions:</Text>
-              <TextInput
-                style={styles.input}
-                keyboardType="numeric"
-                value={numberOfQuestions}
-                onChangeText={setNumberOfQuestions}
-                placeholder="Enter number of questions"
-                placeholderTextColor="gray"
-              />
+              <View style={styles.buttonContainer}>
+                <Button
+                  title="5"
+                  color={numberOfQuestions === 5 ? 'green' : 'red'}
+                  onPress={() => handleNumberOfQuestionsPress(5)}
+                />
+                <Button
+                  title="10"
+                  color={numberOfQuestions === 10 ? 'green' : 'red'}
+                  onPress={() => handleNumberOfQuestionsPress(10)}
+                />
+                <Button
+                  title="15"
+                  color={numberOfQuestions === 15 ? 'green' : 'red'}
+                  onPress={() => handleNumberOfQuestionsPress(15)}
+                />
+                <Button
+                  title="20"
+                  color={numberOfQuestions === 20 ? 'green' : 'red'}
+                  onPress={() => handleNumberOfQuestionsPress(20)}
+                />
+              </View>
 
               <Text style={styles.label}>Select Difficulty:</Text>
               <View style={styles.buttonContainer}>
                 <Button
                   title="Normal"
-                  color={difficulty === 1 ? 'green' : 'gray'}
+                  color={difficulty === 1 ? 'green' : 'red'}
                   onPress={() => handleDifficultyPress(1)}
                 />
                 <Button
                   title="Hard"
-                  color={difficulty === 2 ? 'green' : 'gray'}
+                  color={difficulty === 2 ? 'green' : 'red'}
                   onPress={() => handleDifficultyPress(2)}
                 />
                 <Button
                   title="Professor"
-                  color={difficulty === 3 ? 'green' : 'gray'}
+                  color={difficulty === 3 ? 'green' : 'red'}
                   onPress={() => handleDifficultyPress(3)}
                 />
               </View>
@@ -131,11 +149,10 @@ export default function GameSetupScreen({ navigation }) {
               <View style={styles.buttonContainer}>
                 <Button title="Start Game" onPress={startGame} />
                 <Button
-                title="Home"
-                onPress={() => navigation.navigate('Home')}
+                  title="Home"
+                  onPress={() => navigation.navigate('Home')}
                 />
               </View>
-              
             </ScrollView>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -159,12 +176,12 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 40,
+    marginBottom: 30,
     color: 'gray',
   },
   label: {
-    fontSize: 18,
+    fontSize: 25,
     marginVertical: 10,
     color: 'gray',
   },
@@ -185,3 +202,4 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
 });
+
