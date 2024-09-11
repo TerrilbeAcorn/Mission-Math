@@ -8,7 +8,7 @@ import GameScreen from './screens/GameScreen';
 import LeaderboardScreen from './screens/LeaderboardScreen';
 
 const Stack = createStackNavigator();
-
+// Aidan Ramsay OU ID - Z5704401
 export default function App() {
   return (
     <NavigationContainer>

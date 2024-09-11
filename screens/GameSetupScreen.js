@@ -26,6 +26,7 @@ export default function GameSetupScreen({ navigation }) {
     return Object.keys(selectedOperations).filter(op => selectedOperations[op]);
   };
 
+  // Aidan Ramsay OU ID - Z5704401
   const validateAge = (userAge) => {
     return userAge >= 7 && userAge <= 14;
   };

@@ -35,6 +35,7 @@ const bannedWords = [
   'fuck', 'cunt', 'shit', 'bastard', 'fart', 'shite', 'bawbag', 'bitch', 'boob', 'fanny', 'arse' // Add your banned words here
 ];
 
+// Aidan Ramsay OU ID - Z5704401
 const saveScores = async (scores) => {
   try {
     const jsonScores = JSON.stringify(scores);

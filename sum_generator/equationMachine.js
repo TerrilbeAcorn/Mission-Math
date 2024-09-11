@@ -20,6 +20,7 @@ import generateMixedProblem from './generateMixedProblem';
  * @returns {Equation[]} List of generated equations.
  */
 
+// Aidan Ramsay OU ID - Z5704401
 export default function equationMachine(equationType, noOfEquations, userAge, difficulty) {
     const equationsList = [];
   

@@ -1,3 +1,4 @@
+// Aidan Ramsay OU ID - Z5704401
 function generateAdditionProblem(userAge, difficulty) {
     // Set the time to solve based on difficulty level
     let timeToSolve;
@@ -48,6 +49,7 @@ function generateAdditionProblem(userAge, difficulty) {
     throw new Error("Invalid age. Please provide an age between 7 and 14.");
 }
 
+    // Aidan Ramsay OU ID - Z5704401
     // Generate two random numbers for the addition problem
     const num1 = Math.floor(Math.random() * maxNumber) + 1;
     const num2 = Math.floor(Math.random() * maxNumber) + 1;

@@ -1,3 +1,4 @@
+// Aidan Ramsay OU ID - Z5704401
 import React from 'react';
 import { View, StyleSheet, Animated, Image } from 'react-native';
 
@@ -37,6 +38,7 @@ export default function TwinklingStarBackground({ children }) {
       );
     });
 
+    // Aidan Ramsay OU ID - Z5704401
     // Start the animations with a staggered delay
     Animated.stagger(100, animations).start();
   }, []);
